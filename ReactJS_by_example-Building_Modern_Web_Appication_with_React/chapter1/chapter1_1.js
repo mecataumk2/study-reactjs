@@ -1,5 +1,6 @@
 var App = React.createClass({
     render: function () {
+        console.log(this.props.title);
         var headings = this.props.headings.map(function (heading) {
             return (<th>
                 {heading}
@@ -21,6 +22,7 @@ var App = React.createClass({
             <table>
                 <thead>
                     {headings}
+
                 </thead>
                 {rows}
 
