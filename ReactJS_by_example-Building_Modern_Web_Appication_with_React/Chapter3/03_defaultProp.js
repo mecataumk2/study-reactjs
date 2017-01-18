@@ -45,6 +45,24 @@ RecentChangesTable.Rows = React.createClass({
 });
 
 var App = React.createClass({
+    getDefaultProps: function(){
+        return {
+            headings: ['When happened', 'Who did it', 'What they change']
+
+        };
+    },
+    
+    propTypes: {
+        headings: function(props, propName, componentName){
+        if (propName == 'headings')
+          return Error('Failed Validation in headings')
+        },
+        changeSets: function(props, propName, componentName){
+        if (propName == 'changeSets')
+          return Error('Failed Validation in changeSets')
+        }       
+    },
+
     render: function () {
         return (<RecentChangesTable>
             <RecentChangesTable.Headings headings={this.props.headings} />
@@ -70,7 +88,8 @@ var data = [{
 }];
 
 var headings = ['When', 'Who', 'Description'];
-var props = { headings: headings, changeSets: data };
+/*var props = { headings: headings, changeSets: data };*/
+var props = { changeSets: data };
 
 ReactDOM.render(<App {...props} />, document.getElementById('container'));
 /*ReactDOM.render(<App

@@ -1,6 +1,13 @@
 var RecentChangesTable = React.createClass({
     render: function () {
-        return <table>{this.props.children}</table>;
+        return (
+            <div>
+                <h1> Recent Changes</h1>
+                <table className='table'>
+                    {this.props.children}
+                </table>
+            </div>
+        );
     }
 });
 
@@ -45,7 +52,37 @@ RecentChangesTable.Rows = React.createClass({
 });
 
 var App = React.createClass({
+    getInitialState: function () {
+        return {
+            changeSets: [],
+            headings: ['Updated At', 'Author', 'Change']
+        };
+    },
+
+    handleEvent: function (data) {
+        this.setState({ changeSets: data.changeSets });
+    },
+
+    getDefaultProps: function () {
+        return {
+            headings: ['When happened', 'Who did it', 'What they change']
+
+        };
+    },
+
+    propTypes: {
+        headings: function (props, propName, componentName) {
+            if (propName == 'headings')
+                return Error('Failed Validation in headings')
+        },
+        changeSets: function (props, propName, componentName) {
+            if (propName == 'changeSets')
+                return Error('Failed Validation in changeSets')
+        }
+    },
+
     render: function () {
+        console.log(this.state.changeSets, this.state.headings);
         return (<RecentChangesTable>
             <RecentChangesTable.Headings headings={this.props.headings} />
             <RecentChangesTable.Rows changeSets={this.props.changeSets} />
@@ -70,7 +107,8 @@ var data = [{
 }];
 
 var headings = ['When', 'Who', 'Description'];
-var props = { headings: headings, changeSets: data };
+/*var props = { headings: headings, changeSets: data };*/
+var props = { changeSets: data };
 
 ReactDOM.render(<App {...props} />, document.getElementById('container'));
 /*ReactDOM.render(<App

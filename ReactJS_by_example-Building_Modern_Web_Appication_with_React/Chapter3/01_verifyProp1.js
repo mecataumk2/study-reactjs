@@ -45,6 +45,12 @@ RecentChangesTable.Rows = React.createClass({
 });
 
 var App = React.createClass({
+    propTypes: {
+        headings: React.PropTypes.array,
+        changeSets: React.PropTypes.array,
+        author: React.PropTypes.string.isRequired
+        },    
+
     render: function () {
         return (<RecentChangesTable>
             <RecentChangesTable.Headings headings={this.props.headings} />
